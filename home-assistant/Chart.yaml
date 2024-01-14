@@ -15,7 +15,7 @@ icon: https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Home_Assistant_L
 sources:
   - https://github.com/home-assistant/home-assistant
   - https://github.com/cdr/code-server
-  - https://github.com/samipsolutions/helm-charts/tree/master/charts/stable/home-assistant
+  - https://github.com/sanderv32/helm-charts/tree/master/home-assistant
 dependencies:
   - name: common
     repository: https://bjw-s.github.io/helm-charts/
