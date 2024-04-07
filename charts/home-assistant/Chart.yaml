@@ -4,7 +4,6 @@ appVersion: 2022.10.5
 description: Home Assistant
 name: home-assistant
 version: 16.0.1
-deprecated: true
 kubeVersion: ">=1.19.0-0"
 keywords:
   - home-assistant
@@ -36,3 +35,6 @@ annotations:
   artifacthub.io/changes: |-
     - kind: changed
       description: Upgraded `influxdb` chart dependency to version 5.4.11
+maintainers:
+  - name: sanderv32
+    email: sanderv32@gmail.com
