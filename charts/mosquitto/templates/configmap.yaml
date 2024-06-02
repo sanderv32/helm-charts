@@ -6,7 +6,7 @@ metadata:
   name: {{ template "mosquitto.fullname" . }}
 data:
   mosquitto.conf: |-
-    {{- if .Values.moqquitto.anonymous }}
+    {{- if .Values.mosquitto.anonymous }}
     allow_anonymous true
     {{- else }}
     allow_anonymous false
