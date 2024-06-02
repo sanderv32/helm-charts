@@ -6,6 +6,12 @@ A Helm chart packaging Mosquitto
 
 **Homepage:** <https://github.com/sanderv32/helm-charts/tree/master/charts/mosquitto>
 
+## Maintainers
+
+| Name | Email | Url |
+| ---- | ------ | --- |
+| sanderv32 | <sanderv32@gmail.com> |  |
+
 ## Values
 
 | Key | Type | Default | Description |
