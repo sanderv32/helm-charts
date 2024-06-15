@@ -18,8 +18,14 @@ data:
     {{- end }}
     persistence_location /mosquitto/data/
     log_dest stdout
+    {{- if not .Values.mosquitto.anonymous }}
+    {{- if .Values.mosquitto.users }}
     password_file /mosquitto/config/accounts.conf
+    {{- end }}
+    {{- if .Values.mosquitto.acls }}
     acl_file /mosquitto/config/acls.conf
+    {{- end }}
+    {{- end }}
     listener {{ .Values.service.ports.mqtt }}
 
     {{- if .Values.mosquitto.ssl.enabled }}
