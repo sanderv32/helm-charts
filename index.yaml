@@ -133,6 +133,21 @@ entries:
   mosquitto:
   - apiVersion: v2
     appVersion: 1.6.12
+    created: "2024-06-15T20:39:27.735772918Z"
+    description: A Helm chart packaging Mosquitto
+    digest: 253ccc94ca4de9730dee69c6354e73e416f833b403a95be70664a39671ecea6a
+    home: https://github.com/sanderv32/helm-charts/tree/master/charts/mosquitto
+    icon: https://mosquitto.org/images/mosquitto-text-side-28.png
+    maintainers:
+    - email: sanderv32@gmail.com
+      name: sanderv32
+    name: mosquitto
+    type: application
+    urls:
+    - mosquitto-1.1.1.tgz
+    version: 1.1.1
+  - apiVersion: v2
+    appVersion: 1.6.12
     created: "2024-06-02T21:30:08.08031912Z"
     description: A Helm chart packaging Mosquitto
     digest: 463d9492fc053169f7167145b0849317543a302e52ae29fed459a933d5ba0e41
@@ -146,4 +161,4 @@ entries:
     urls:
     - mosquitto-1.1.0.tgz
     version: 1.1.0
-generated: "2024-06-02T21:30:08.080365696Z"
+generated: "2024-06-15T20:39:27.73579017Z"
