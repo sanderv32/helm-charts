@@ -1,0 +1,68 @@
+{{- if .Values.mongodb.enabled }}
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: unifi-mongodb
+  labels:
+    app: unifi-mongodb
+spec:
+  serviceName: {{ include "unifi-network-app.fullname" . }}-mongodb
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: unifi-mongodb
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        app: unifi-mongodb
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "unifi-network-app.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: unifi-mongodb
+          image: "{{ .Values.mongodb.image.repository }}:{{ .Values.mongodb.image.tag | default "latest"}}"
+          imagePullPolicy: {{ .Values.mongodb.image.pullPolicy }}
+          livenessProbe:
+            httpGet:
+              path: /
+              port: {{ .Values.mongodb.port }}          
+          readinessProbe:
+            httpGet:
+              path: /
+              port: {{ .Values.mongodb.port }}          
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+              - mountPath: /docker-entrypoint-initdb.d/init-mongo.js
+                name: unifi-db-cm
+                readOnly: true
+                subPath: init-mongo.js
+      volumes:
+        - configMap:
+            items:
+              - key: init-mongo.js
+                path: init-mongo.js
+            name: unifi-db-cm
+          name: unifi-db-cm
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+{{- end }}

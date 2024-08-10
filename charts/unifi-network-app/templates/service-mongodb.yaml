@@ -1,0 +1,15 @@
+{{- if .Values.mongodb.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: unifi-mongodb
+  labels:
+    app: unifi-mongodb
+spec:
+  ports:
+  - port: {{ .Values.mongodb.port }} 
+    name: mongodb
+  clusterIP: None
+  selector:
+    app: unifi-mongodb
+{{- end }}
