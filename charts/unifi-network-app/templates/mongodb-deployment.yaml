@@ -2,15 +2,15 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: unifi-mongodb
+  name: "{{ include "unifi-network-app.fullname" . }}-mongodb"
   labels:
-    app: unifi-mongodb
+    app: {{ include "unifi-network-app.fullname" . }}-mongodb
 spec:
   serviceName: {{ include "unifi-network-app.fullname" . }}-mongodb
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: unifi-mongodb
+      app: {{ include "unifi-network-app.fullname" . }}-mongodb
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -18,7 +18,7 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        app: unifi-mongodb
+        app: {{ include "unifi-network-app.fullname" . }}-mongodb
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
@@ -28,7 +28,7 @@ spec:
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
-        - name: unifi-mongodb
+        - name: {{ include "unifi-network-app.fullname" . }}-mongodb
           image: "{{ .Values.mongodb.image.repository }}:{{ .Values.mongodb.image.tag | default "latest"}}"
           imagePullPolicy: {{ .Values.mongodb.image.pullPolicy }}
           livenessProbe:
@@ -43,7 +43,7 @@ spec:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
               - mountPath: /docker-entrypoint-initdb.d/init-mongo.js
-                name: unifi-db-cm
+                name: {{ include "unifi-network-app.fullname" . }}-mongodb-cm
                 readOnly: true
                 subPath: init-mongo.js
       volumes:
@@ -51,8 +51,8 @@ spec:
             items:
               - key: init-mongo.js
                 path: init-mongo.js
-            name: unifi-db-cm
-          name: unifi-db-cm
+            name: {{ include "unifi-network-app.fullname" . }}-mongodb-cm
+          name: {{ include "unifi-network-app.fullname" . }}-mongodb-cm
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

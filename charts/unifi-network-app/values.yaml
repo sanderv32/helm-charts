@@ -16,7 +16,7 @@ unifi:
   tz: "Etc/UTC"
 
 mongodb:
-  install: true
+  enabled: true
   port: 27017
   image:
     repository: docker.io/mongo

@@ -37,8 +37,13 @@ spec:
           - name: MONGO_AUTHSOURCE
           - name: MONGO_DBNAME
             value: {{ .Values.unifi.db.name | default "unifi" }}
+          {{- if .Values.mongodb.enabled }}
           - name: MONGO_HOST
-            value: {{ .Values.unifi.db.host }}
+            value: {{ include "unifi-network-app.fullname" . }}-mongodb
+          # {{- else -}}
+          # - name: MONGO_HOST
+          #   value: {{ .Values.unifi.db.host }}
+          {{- end }}
           - name: MONGO_PASS
             value: {{ .Values.unifi.db.password | default "unifi" }}
           - name: MONGO_PORT

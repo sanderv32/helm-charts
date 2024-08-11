@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: unifi-db-cm
+  name: "{{ include "unifi-network-app.fullname" . }}-mongodb-cm"
   labels: {{- include "unifi-network-app.labels" . | nindent 4 }}
 data:
   init-mongo.js: |-
