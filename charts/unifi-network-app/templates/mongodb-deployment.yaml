@@ -46,6 +46,9 @@ spec:
                 name: {{ include "unifi-network-app.fullname" . }}-mongodb-cm
                 readOnly: true
                 subPath: init-mongo.js
+          {{- with .Values.mongodb.volumeMounts }}
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
       volumes:
         - configMap:
             items:
@@ -53,6 +56,9 @@ spec:
                 path: init-mongo.js
             name: {{ include "unifi-network-app.fullname" . }}-mongodb-cm
           name: {{ include "unifi-network-app.fullname" . }}-mongodb-cm
+      {{- with .Values.mongodb.volumes }}
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

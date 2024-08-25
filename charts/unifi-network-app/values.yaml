@@ -22,6 +22,8 @@ mongodb:
     repository: docker.io/mongo
     pullPolicy: IfNotPresent
     tag: ""
+  volumes: []
+  volumeMounts: []
 
 replicaCount: 1
 
