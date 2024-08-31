@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "unifi-network-app.fullname" . }}
+  labels:
+    {{- include "unifi-network-app.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    {{- range $key, $value := .Values.service.ports}}
+    - port: {{ $value.port }}
+      targetPort: {{ $value.port }}
+      protocol: {{ $value.proto | upper }}
+      name: {{ $key }}
+    {{- end}}
+  selector:
+    {{- include "unifi-network-app.selectorLabels" . | nindent 4 }}

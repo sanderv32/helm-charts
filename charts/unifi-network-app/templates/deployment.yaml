@@ -1,0 +1,96 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "unifi-network-app.fullname" . }}
+  labels:
+    {{- include "unifi-network-app.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "unifi-network-app.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "unifi-network-app.labels" . | nindent 8 }}
+        {{- with .Values.podLabels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "unifi-network-app.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - env:
+          - name: MEM_LIMIT
+            value: "{{ .Values.memLimit | default "1024" }}"
+          - name: MEM_STARTUP
+            value: "{{ .Values.memStartup | default "1024" }}"
+          - name: MONGO_AUTHSOURCE
+          - name: MONGO_DBNAME
+            value: {{ .Values.unifi.db.name | default "unifi" }}
+          {{- if .Values.mongodb.enabled }}
+          - name: MONGO_HOST
+            value: {{ include "unifi-network-app.fullname" . }}-mongodb
+          # {{- else -}}
+          # - name: MONGO_HOST
+          #   value: {{ .Values.unifi.db.host }}
+          {{- end }}
+          - name: MONGO_PASS
+            value: {{ .Values.unifi.db.password | default "unifi" }}
+          - name: MONGO_PORT
+            value: "{{ .Values.unifi.db.port | default "27017" }}"
+          - name: MONGO_TLS
+          - name: MONGO_USER
+            value: {{ .Values.unifi.db.user | default "unifi" }}
+          - name: PGID
+            value: "{{ .Values.unifi.pgid | default "1000" }}"
+          - name: PUID
+            value: "{{ .Values.unifi.puid | default "1000" }}"
+          - name: TZ
+            value: {{ .Values.unifi.tz | default "Etc/UTC" }}
+
+          name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            {{- range $key, $value := .Values.service.ports}}
+            - containerPort: {{ $value.port }}  # {{ $key }}
+              protocol: {{ $value.proto | upper }}
+            {{- end}}
+          livenessProbe:
+            {{- toYaml .Values.livenessProbe | nindent 12 }}
+          readinessProbe:
+            {{- toYaml .Values.readinessProbe | nindent 12 }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          {{- with .Values.volumeMounts }}
+          volumeMounts:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+      {{- with .Values.volumes }}
+      volumes:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

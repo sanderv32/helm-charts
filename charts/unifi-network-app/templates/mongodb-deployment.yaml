@@ -1,0 +1,74 @@
+{{- if .Values.mongodb.enabled }}
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: "{{ include "unifi-network-app.fullname" . }}-mongodb"
+  labels:
+    app: {{ include "unifi-network-app.fullname" . }}-mongodb
+spec:
+  serviceName: {{ include "unifi-network-app.fullname" . }}-mongodb
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ include "unifi-network-app.fullname" . }}-mongodb
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        app: {{ include "unifi-network-app.fullname" . }}-mongodb
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "unifi-network-app.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ include "unifi-network-app.fullname" . }}-mongodb
+          image: "{{ .Values.mongodb.image.repository }}:{{ .Values.mongodb.image.tag | default "latest"}}"
+          imagePullPolicy: {{ .Values.mongodb.image.pullPolicy }}
+          livenessProbe:
+            httpGet:
+              path: /
+              port: {{ .Values.mongodb.port }}
+          readinessProbe:
+            httpGet:
+              path: /
+              port: {{ .Values.mongodb.port }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+            - mountPath: /docker-entrypoint-initdb.d/init-mongo.js
+              name: {{ include "unifi-network-app.fullname" . }}-mongodb-cm
+              readOnly: true
+              subPath: init-mongo.js
+          {{- with .Values.mongodb.volumeMounts }}
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+      volumes:
+        - configMap:
+            items:
+              - key: init-mongo.js
+                path: init-mongo.js
+            name: {{ include "unifi-network-app.fullname" . }}-mongodb-cm
+          name: {{ include "unifi-network-app.fullname" . }}-mongodb-cm
+      {{- with .Values.mongodb.volumes }}
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+{{- end }}

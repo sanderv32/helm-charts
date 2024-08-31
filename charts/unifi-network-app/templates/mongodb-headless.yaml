@@ -1,0 +1,15 @@
+{{- if .Values.mongodb.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: "{{ include "unifi-network-app.fullname" . }}-mongodb"
+  labels:
+    app: "{{ include "unifi-network-app.fullname" . }}-mongodb"
+spec:
+  ports:
+  - port: {{ .Values.mongodb.port }} 
+    name: mongodb
+  clusterIP: None
+  selector:
+    app: "{{ include "unifi-network-app.fullname" . }}-mongodb"
+{{- end }}
