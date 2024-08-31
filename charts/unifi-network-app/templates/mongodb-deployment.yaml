@@ -34,18 +34,18 @@ spec:
           livenessProbe:
             httpGet:
               path: /
-              port: {{ .Values.mongodb.port }}          
+              port: {{ .Values.mongodb.port }}
           readinessProbe:
             httpGet:
               path: /
-              port: {{ .Values.mongodb.port }}          
+              port: {{ .Values.mongodb.port }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
-              - mountPath: /docker-entrypoint-initdb.d/init-mongo.js
-                name: {{ include "unifi-network-app.fullname" . }}-mongodb-cm
-                readOnly: true
-                subPath: init-mongo.js
+            - mountPath: /docker-entrypoint-initdb.d/init-mongo.js
+              name: {{ include "unifi-network-app.fullname" . }}-mongodb-cm
+              readOnly: true
+              subPath: init-mongo.js
           {{- with .Values.mongodb.volumeMounts }}
             {{- toYaml . | nindent 12 }}
           {{- end }}
