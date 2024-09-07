@@ -1,7 +1,7 @@
 #!/bin/bash
 set -euo pipefail
 
-HELM_DOCS_VERSION="1.13.1"
+HELM_DOCS_VERSION="1.14.2"
 ARCH=$(uname -m)
 
 if which helm-docs > /dev/null; then
