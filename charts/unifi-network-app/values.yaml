@@ -54,10 +54,10 @@ securityContext: {}
 service:
   type: ClusterIP
   ports:
-    https_admin:
+    https-admin:
       port: 8443
       proto: tcp
-    http_inform:
+    http-inform:
       port: 8080
       proto: tcp
     stun:
@@ -66,24 +66,24 @@ service:
     discovery:
       port: 10001
       proto: udp
-    discovery_l2:
+    discovery-l2:
       port: 1900
       proto: udp
-    https_guestportal:
+    https-guestportal:
       port: 8843
       proto: tcp
-    http_guestportal:
+    http-guestportal:
       port: 8880
       proto: tcp
     throughputtest:
       port: 6789
       proto: tcp
-    remote_syslog:
+    remote-syslog:
       port: 5514
       proto: udp
 
 ingress:
-  enabled: false
+  enabled: true
   className: ""
   annotations: {}
   hosts:
