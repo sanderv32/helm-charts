@@ -2,21 +2,17 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-unifi:
-  db:
-    host: "unifi-mongodb"
-    port: 27017
-    name: "unifi"
-    user: "unifi"
-    password: "unifi"
-  memLimit: 1024
-  memStartup: 1024
-  puid: 1000
-  pgid: 1000
-  tz: "Etc/UTC"
+memLimit: 1024
+memStartup: 1024
+puid: 1000
+pgid: 1000
+tz: "Etc/UTC"
 
 mongodb:
   enabled: true
+  db_name: "unifi-mongodb"
+  db_user: "unifi"
+  db_password: "unifi"
   port: 27017
   image:
     repository: docker.io/mongo
@@ -58,10 +54,10 @@ securityContext: {}
 service:
   type: ClusterIP
   ports:
-    admin:
+    https-admin:
       port: 8443
       proto: tcp
-    inform:
+    http-inform:
       port: 8080
       proto: tcp
     stun:
@@ -73,10 +69,10 @@ service:
     discovery-l2:
       port: 1900
       proto: udp
-    guestportal-https:
+    https-guestportal:
       port: 8843
       proto: tcp
-    guestportal-http:
+    http-guestportal:
       port: 8880
       proto: tcp
     throughputtest:
@@ -87,7 +83,7 @@ service:
       proto: udp
 
 ingress:
-  enabled: false
+  enabled: true
   className: ""
   annotations: {}
   hosts:
@@ -97,7 +93,8 @@ ingress:
           pathType: ImplementationSpecific
   tls: []
 
-resources: {}
+resources:
+  {}
   # We usually recommend not to specify default resources and to leave this as a conscious
   # choice for the user. This also increases chances charts run on environments with little
   # resources, such as Minikube. If you do want to specify resources, uncomment the following
