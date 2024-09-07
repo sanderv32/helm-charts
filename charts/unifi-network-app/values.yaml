@@ -10,7 +10,7 @@ tz: "Etc/UTC"
 
 mongodb:
   enabled: true
-  db_name: "unifi-mongodb"
+  db_name: "unifi"
   db_user: "unifi"
   db_password: "unifi"
   port: 27017
