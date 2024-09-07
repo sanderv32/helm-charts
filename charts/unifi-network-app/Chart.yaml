@@ -7,7 +7,7 @@ keywords:
   - Controller
   - Network
 type: application
-version: 0.1.2
+version: 0.2.0
 appVersion: "8.4.59"
 maintainers:
   - name: sanderv32
