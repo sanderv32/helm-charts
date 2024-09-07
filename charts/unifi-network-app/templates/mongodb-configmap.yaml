@@ -6,6 +6,6 @@ metadata:
   labels: {{- include "unifi-network-app.labels" . | nindent 4 }}
 data:
   init-mongo.js: |-
-    db.getSiblingDB("{{ .Values.mongodb.name }}").createUser({user: "{{ .Values.mongodb.user }}", pwd: "{{ .Values.mongodb.password }}", roles: [{role: "dbOwner", db: "{{ .Values.mongodb.name }}"}]});
-    db.getSiblingDB("{{ .Values.mongodb.name }}_stat").createUser({user: "{{ .Values.mongodb.user }}", pwd: "{{ .Values.mongodb.password }}", roles: [{role: "dbOwner", db: "{{ .Values.mongodb.name }}_stat"}]});
+    db.getSiblingDB("{{ .Values.mongodb.db_name }}").createUser({user: "{{ .Values.mongodb.db_user }}", pwd: "{{ .Values.mongodb.db_password }}", roles: [{role: "dbOwner", db: "{{ .Values.mongodb.db_name }}"}]});
+    db.getSiblingDB("{{ .Values.mongodb.db_name }}_stat").createUser({user: "{{ .Values.mongodb.db_user }}", pwd: "{{ .Values.mongodb.db_password }}", roles: [{role: "dbOwner", db: "{{ .Values.mongodb.db_name }}_stat"}]});
 {{- end }}

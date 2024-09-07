@@ -36,7 +36,7 @@ spec:
             value: "{{ .Values.memStartup }}"
           - name: MONGO_AUTHSOURCE
           - name: MONGO_DBNAME
-            value: "{{ .Values.mongodb.name }}"
+            value: "{{ .Values.mongodb.db_name }}"
           {{- if .Values.mongodb.enabled }}
           - name: MONGO_HOST
             value: {{ include "unifi-network-app.fullname" . }}-mongodb
@@ -45,12 +45,12 @@ spec:
             value: "{{ .Values.mongodb.host }}"
           {{- end }}
           - name: MONGO_PASS
-            value: "{{ .Values.mongodb.password }}"
+            value: "{{ .Values.mongodb.db_password }}"
           - name: MONGO_PORT
             value: "{{ .Values.mongodb.port }}"
           - name: MONGO_TLS
           - name: MONGO_USER
-            value: "{{ .Values.mongodb.user }}"
+            value: "{{ .Values.mongodb.db_user }}"
           - name: PGID
             value: "{{ .Values.pgid }}"
           - name: PUID
