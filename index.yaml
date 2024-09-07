@@ -164,6 +164,24 @@ entries:
   unifi-network-app:
   - apiVersion: v2
     appVersion: 8.4.59
+    created: "2024-09-07T20:00:41.009187823Z"
+    description: A Helm chart for Unifi Network Application
+    digest: da6fd36534a92b43690b415a3d3e0139064f2858b40825bbd2cc824716deda8f
+    icon: https://raw.githubusercontent.com/sanderv32/helm-charts/master/icons/ubiquity.svg
+    keywords:
+    - Unifi
+    - Controller
+    - Network
+    maintainers:
+    - email: sanderv32@gmail.com
+      name: sanderv32
+    name: unifi-network-app
+    type: application
+    urls:
+    - unifi-network-app-0.2.1.tgz
+    version: 0.2.1
+  - apiVersion: v2
+    appVersion: 8.4.59
     created: "2024-09-07T18:17:54.337199852Z"
     description: A Helm chart for Unifi Network Application
     digest: 5311cc2d97d25383bf8f894035a591603a530fd71ffd4144e5ae07dca71601f9
@@ -214,4 +232,4 @@ entries:
     urls:
     - unifi-network-app-0.1.0.tgz
     version: 0.1.0
-generated: "2024-09-07T18:17:54.3372254Z"
+generated: "2024-09-07T20:00:41.009238257Z"
