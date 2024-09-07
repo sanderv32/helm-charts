@@ -31,34 +31,34 @@ spec:
       containers:
         - env:
           - name: MEM_LIMIT
-            value: "{{ .Values.memLimit | default "1024" }}"
+            value: "{{ .Values.memLimit }}"
           - name: MEM_STARTUP
-            value: "{{ .Values.memStartup | default "1024" }}"
+            value: "{{ .Values.memStartup }}"
           - name: MONGO_AUTHSOURCE
           - name: MONGO_DBNAME
-            value: {{ .Values.unifi.db.name | default "unifi" }}
+            value: "{{ .Values.mongodb.name }}"
           {{- if .Values.mongodb.enabled }}
           - name: MONGO_HOST
             value: {{ include "unifi-network-app.fullname" . }}-mongodb
-          # {{- else -}}
-          # - name: MONGO_HOST
-          #   value: {{ .Values.unifi.db.host }}
+          {{- else -}}
+          - name: MONGO_HOST
+            value: "{{ .Values.mongodb.host }}"
           {{- end }}
           - name: MONGO_PASS
-            value: {{ .Values.unifi.db.password | default "unifi" }}
+            value: "{{ .Values.mongodb.password }}"
           - name: MONGO_PORT
-            value: "{{ .Values.unifi.db.port | default "27017" }}"
+            value: "{{ .Values.mongodb.port }}"
           - name: MONGO_TLS
           - name: MONGO_USER
-            value: {{ .Values.unifi.db.user | default "unifi" }}
+            value: "{{ .Values.mongodb.user }}"
           - name: PGID
-            value: "{{ .Values.unifi.pgid | default "1000" }}"
+            value: "{{ .Values.pgid }}"
           - name: PUID
-            value: "{{ .Values.unifi.puid | default "1000" }}"
+            value: "{{ .Values.puid }}"
           - name: TZ
-            value: {{ .Values.unifi.tz | default "Etc/UTC" }}
+            value: "{{ .Values.tz }}"
 
-          name: {{ .Chart.Name }}
+          name: "{{ .Chart.Name }}"
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"

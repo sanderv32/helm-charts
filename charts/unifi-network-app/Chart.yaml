@@ -1,13 +1,14 @@
 apiVersion: v2
 name: unifi-network-app
-description: A Helm chart for Kubernetes
+description: A Helm chart for Unifi Network Application
+icon: https://raw.githubusercontent.com/sanderv32/helm-charts/master/icons/ubiquity.svg
 keywords:
   - Unifi
   - Controller
   - Network
 type: application
-version: 0.1.1
-appVersion: "8.3.32"
+version: 0.1.2
+appVersion: "8.4.59"
 maintainers:
   - name: sanderv32
     email: sanderv32@gmail.com
