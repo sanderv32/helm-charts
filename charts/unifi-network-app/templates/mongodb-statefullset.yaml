@@ -32,13 +32,23 @@ spec:
           image: "{{ .Values.mongodb.image.repository }}:{{ .Values.mongodb.image.tag | default "latest"}}"
           imagePullPolicy: {{ .Values.mongodb.image.pullPolicy }}
           livenessProbe:
-            httpGet:
-              path: /
-              port: {{ .Values.mongodb.port }}
+            exec:
+              command:
+                - mongosh
+                - --eval
+                - "db.adminCommand('ping')"
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            failureThreshold: 3
           readinessProbe:
-            httpGet:
-              path: /
-              port: {{ .Values.mongodb.port }}
+            exec:
+              command:
+                - mongosh
+                - --eval
+                - "db.adminCommand('ping')"
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            failureThreshold: 3
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
