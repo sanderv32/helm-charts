@@ -132,6 +132,21 @@ entries:
     version: 16.0.2
   mosquitto:
   - apiVersion: v2
+    appVersion: 2.0.22
+    created: "2026-06-27T08:43:25.714460769Z"
+    description: A Helm chart packaging Mosquitto
+    digest: 2cbdac9dfe374d2291536caa1b86dbe3c302410e46bf776d1033604295321ba9
+    home: https://github.com/sanderv32/helm-charts/tree/master/charts/mosquitto
+    icon: https://mosquitto.org/images/mosquitto-text-side-28.png
+    maintainers:
+    - email: sanderv32@gmail.com
+      name: sanderv32
+    name: mosquitto
+    type: application
+    urls:
+    - mosquitto-1.2.0.tgz
+    version: 1.2.0
+  - apiVersion: v2
     appVersion: 1.6.12
     created: "2024-06-15T20:39:27.735772918Z"
     description: A Helm chart packaging Mosquitto
@@ -250,4 +265,4 @@ entries:
     urls:
     - unifi-network-app-0.1.0.tgz
     version: 0.1.0
-generated: "2024-12-15T20:53:06.145676875Z"
+generated: "2026-06-27T08:43:25.71455346Z"
