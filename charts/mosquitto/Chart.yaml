@@ -2,8 +2,8 @@ apiVersion: v2
 name: mosquitto
 description: A Helm chart packaging Mosquitto
 type: application
-version: 1.1.1
-appVersion: 1.6.12
+version: 1.2.0
+appVersion: 2.0.22
 home: https://github.com/sanderv32/helm-charts/tree/master/charts/mosquitto
 icon: https://mosquitto.org/images/mosquitto-text-side-28.png
 maintainers:
